@@ -29,6 +29,7 @@ class MarsRoverGame:
     def run_game(self):
         while True:
             self._check_events()
+            self._bullets.update()
             self._update_screen()
 
             for bullet in self._bullets.copy():
@@ -63,7 +64,8 @@ class MarsRoverGame:
     def _update_screen(self):
         self._screen.fill(self._settings.background_color)
         self._screen.blit(self._rover_image, self._rover_rect)
-        self._bullets.update()
+        for bullet in self._bullets:
+            bullet.draw()
         pygame.display.flip()
 
     def _fire_bullet(self):
