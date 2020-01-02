@@ -44,14 +44,14 @@ class BulletView(Sprite):
     def position_updated_event(self, position):
         if position['Facing'] == 'N' or position['Facing'] == 'S':
             if position['Facing'] == 'N':
-                self._y = self._settings.screen_height - position['Y'] - self._settings.rover_height
+                self._y = self._settings.screen_height - position['Y'] - self._settings.rover_height - self._settings.bullet_length
             elif position['Facing'] == 'S':
                 self._y = self._settings.screen_height - position['Y']
         elif position['Facing'] == 'E' or position['Facing'] == 'W':
             if position['Facing'] == 'E':
                 self._x = position['X'] + self._settings.rover_height
             elif position['Facing'] == 'W':
-                self._x = position['X']
+                self._x = position['X'] - self._settings.bullet_length
         self._rect.x = self._x
         self._rect.y = self._y
 
