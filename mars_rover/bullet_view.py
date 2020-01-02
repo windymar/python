@@ -28,11 +28,13 @@ class BulletView(Sprite):
         self.is_out_of_map = False
 
         if position['Facing'] == 'N' or position['Facing'] == 'S':
-            self._x = self._starting_bullet_position['X'] + (self._settings.rover_width / 2)
+            self._x = self._starting_bullet_position['X'] + (self._settings.rover_width / 2) \
+                      - (self._settings.bullet_thickness / 2)
             self._width = self._settings.bullet_thickness
             self._height = self._settings.bullet_length
         elif position['Facing'] == 'W' or position['Facing'] == 'E':
-            self._y = self._settings.screen_height - self._starting_bullet_position['Y'] - (self._settings.rover_width / 2)
+            self._y = self._settings.screen_height - self._starting_bullet_position['Y']\
+                      - (self._settings.rover_width / 2) - (self._settings.bullet_thickness / 2)
             self._width = self._settings.bullet_length
             self._height = self._settings.bullet_thickness
 
@@ -44,7 +46,8 @@ class BulletView(Sprite):
     def position_updated_event(self, position):
         if position['Facing'] == 'N' or position['Facing'] == 'S':
             if position['Facing'] == 'N':
-                self._y = self._settings.screen_height - position['Y'] - self._settings.rover_height - self._settings.bullet_length
+                self._y = self._settings.screen_height - position['Y'] \
+                          - self._settings.rover_height - self._settings.bullet_length
             elif position['Facing'] == 'S':
                 self._y = self._settings.screen_height - position['Y']
         elif position['Facing'] == 'E' or position['Facing'] == 'W':
