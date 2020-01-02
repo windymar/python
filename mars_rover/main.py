@@ -69,7 +69,7 @@ class MarsRoverGame:
         pygame.display.flip()
 
     def _fire_bullet(self):
-        bullet = BulletView(self, self._settings, self._rover.get_position())
+        bullet = BulletView(self._screen, self._settings, self._rover.get_position())
         self._bullets.add(bullet)
         logging.info(F'New bullet fired. Bullets alive: {len(self._bullets)}')
 

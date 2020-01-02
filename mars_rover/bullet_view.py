@@ -8,9 +8,9 @@ from converters import upscale
 
 
 class BulletView(Sprite):
-    def __init__(self, game, settings, position):
+    def __init__(self, screen, settings, position):
         super().__init__()
-        self._game = game
+        self._screen = screen
         self._settings = settings
         self._starting_bullet_position = copy.deepcopy(position)
         self._starting_bullet_position['X'] *= self._settings.scale_view_factor
@@ -56,7 +56,7 @@ class BulletView(Sprite):
         self._rect.y = self._y
 
     def draw(self):
-        pygame.draw.rect(self._game._screen, self._settings.bullet_color, self._rect)
+        pygame.draw.rect(self._screen, self._settings.bullet_color, self._rect)
 
     def map_edge_reached_event(self):
         self.is_out_of_map = True
