@@ -9,14 +9,15 @@ class RoverView(Sprite):
         super().__init__()
         self._screen = screen
         self._settings = settings
-        self._rover_image = pygame.image.load('images/rover.bmp')
+        self._rover_image = pygame.image.load('images/tankwithshadow.png')
+        self._rover_image = pygame.transform.scale(self._rover_image, (self._settings.rover_width, self._settings.rover_height))
         self._rover_rect = self._rover_image.get_rect()
         self._rover_rect.x = 0
         self._rover_rect.y = self._settings.screen_height - self._rover_rect.height
         self._rover = Rover()
         self._rover_controller = RoverController(self._rover,
-                                                 {'Width': self._settings.screen_width / self._settings.step_factor,
-                                                  'Height': self._settings.screen_height / self._settings.step_factor},
+                                                 {'Width': (self._settings.screen_width / self._settings.step_factor) - (self._settings.rover_width / self._settings.step_factor) + 1,
+                                                  'Height': (self._settings.screen_height / self._settings.step_factor) - (self._settings.rover_height / self._settings.step_factor) + 1},
                                                  self)
 
     def draw(self):

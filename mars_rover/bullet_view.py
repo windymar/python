@@ -47,14 +47,14 @@ class BulletView(Sprite):
         if position['Facing'] == 'N' or position['Facing'] == 'S':
             if position['Facing'] == 'N':
                 self._y = self._settings.screen_height - position['Y'] \
-                          - self._settings.rover_height - self._settings.bullet_length
+                          - self._settings.rover_height - self._settings.bullet_length + self._settings.rover_edge_margin
             elif position['Facing'] == 'S':
-                self._y = self._settings.screen_height - position['Y']
+                self._y = self._settings.screen_height - position['Y'] - self._settings.rover_edge_margin
         elif position['Facing'] == 'E' or position['Facing'] == 'W':
             if position['Facing'] == 'E':
-                self._x = position['X'] + self._settings.rover_height
+                self._x = position['X'] + self._settings.rover_height - self._settings.rover_edge_margin
             elif position['Facing'] == 'W':
-                self._x = position['X'] - self._settings.bullet_length
+                self._x = position['X'] - self._settings.bullet_length + self._settings.rover_edge_margin
         self._rect.x = self._x
         self._rect.y = self._y
 
