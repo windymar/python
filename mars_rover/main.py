@@ -9,16 +9,18 @@ import logging
 class MarsRoverGame:
     def __init__(self):
         logging.basicConfig(level=logging.INFO, filename='syslog.log', filemode='w')
-        pygame.display.init()
-        pygame.display.set_caption("Mars Rover")
-
         self._settings = Settings()
+        pygame.mixer.init(buffer=64)
+        pygame.init()
+        pygame.display.set_caption("Mars Rover")
 
         self._screen = pygame.display.set_mode((self._settings.screen_width, self._settings.screen_height))
         self._screen_rect = self._screen.get_rect()
 
         self._rover_view = RoverView(self._screen, self._settings)
         self._bullets = pygame.sprite.Group()
+
+        self._shoot_sound = pygame.mixer.Sound("sounds/shoot.wav")
 
     def run_game(self):
         while True:
@@ -53,6 +55,7 @@ class MarsRoverGame:
         pygame.display.flip()
 
     def _fire_bullet(self):
+        pygame.mixer.Sound.play(self._shoot_sound)
         bullet = BulletView(self._screen, self._settings, self._rover_view.get_position())
         self._bullets.add(bullet)
         logging.info(F'New bullet fired. Bullets alive: {len(self._bullets)}')
