@@ -14,7 +14,11 @@ class BulletView(Sprite):
         self._settings = settings
         self._starting_bullet_position = copy.deepcopy(position)
         self._starting_bullet_position['X'] *= self._settings.scale_view_factor
+        if position['Facing'] == 'E':
+            self._starting_bullet_position['X'] += self._settings.rover_width
         self._starting_bullet_position['Y'] *= self._settings.scale_view_factor
+        if position['Facing'] == 'N':
+            self._starting_bullet_position['Y'] += self._settings.rover_height
         self._bullet = Bullet(self._starting_bullet_position)
         self._bullet_controller = BulletController(self._bullet,
                                              {'Width': self._settings.screen_width,
@@ -45,16 +49,9 @@ class BulletView(Sprite):
 
     def position_updated_event(self, position):
         if position['Facing'] == 'N' or position['Facing'] == 'S':
-            if position['Facing'] == 'N':
-                self._y = self._settings.screen_height - position['Y'] \
-                          - self._settings.rover_height - self._settings.bullet_length + self._settings.rover_edge_margin
-            elif position['Facing'] == 'S':
-                self._y = self._settings.screen_height - position['Y'] - self._settings.rover_edge_margin
+            self._y = self._settings.screen_height - position['Y']
         elif position['Facing'] == 'E' or position['Facing'] == 'W':
-            if position['Facing'] == 'E':
-                self._x = position['X'] + self._settings.rover_height - self._settings.rover_edge_margin
-            elif position['Facing'] == 'W':
-                self._x = position['X'] - self._settings.bullet_length + self._settings.rover_edge_margin
+            self._x = position['X']
         self._rect.x = self._x
         self._rect.y = self._y
 

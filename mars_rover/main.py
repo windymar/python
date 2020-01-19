@@ -4,18 +4,19 @@ from settings import Settings
 from rover_view import RoverView
 from bullet_view import BulletView
 import logging
+import os
 
 
 class MarsRoverGame:
     def __init__(self):
-        logging.basicConfig(level=logging.INFO, filename='syslog.log', filemode='w')
         self._settings = Settings()
+        logging.basicConfig(level=logging.INFO, filename='syslog.log', filemode='w')
+        os.environ['SDL_VIDEO_CENTERED'] = '1'
         pygame.mixer.init(buffer=64)
         pygame.init()
         pygame.display.set_caption("Mars Rover")
 
         self._screen = pygame.display.set_mode((self._settings.screen_width, self._settings.screen_height))
-        self._screen_rect = self._screen.get_rect()
 
         self._rover_view = RoverView(self._screen, self._settings)
         self._bullets = pygame.sprite.Group()
